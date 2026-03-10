@@ -1,14 +1,18 @@
 package models;
+import observer.Observer;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Book {
-    //title, author, ISBN, and publication year.
+
     private String title;
     private String author;
     private String isbn;
     private int publicationYear;
     private boolean available;
+    private List<Observer> observers = new ArrayList<>();
 
-    public  Book(String title, String author, String isbn, int publicationYear){
+    public Book(String title, String author, String isbn, int publicationYear) {
         this.title = title;
         this.author = author;
         this.isbn = isbn;
@@ -32,8 +36,7 @@ public class Book {
         return publicationYear;
     }
 
-
-    public boolean getAvailablity() {
+    public boolean isAvailable() {
         return available;
     }
 
@@ -45,28 +48,33 @@ public class Book {
         this.author = author;
     }
 
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
-    }
-
     public void setPublicationYear(int publicationYear) {
         this.publicationYear = publicationYear;
     }
 
-    public void setAvailable(boolean available) {
-        this.available = available;
-    }
-
-    public void markBorrowed(){
+    public void markBorrowed() {
         this.available = false;
     }
 
-    public void markReturned(){
+    public void markReturned() {
         this.available = true;
+        notifyObservers();
+    }
+
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    public void notifyObservers() {
+
+        for (Observer observer : observers) {
+            observer.update(this);
+        }
+        observers.clear();
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return title + " by " + author + " (ISBN: " + isbn + ")";
     }
 }

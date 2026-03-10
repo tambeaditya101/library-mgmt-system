@@ -44,7 +44,7 @@ public class LibraryService {
             return;
         }
 
-        if (!book.getAvailablity()) {
+        if (!book.isAvailable()) {
             System.out.println("Book already borrowed");
             return;
         }

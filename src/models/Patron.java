@@ -1,9 +1,11 @@
 package models;
 
+import observer.Observer;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Patron {
+public class Patron implements Observer {
 
     private String id;
     private String name;
@@ -25,11 +27,20 @@ public class Patron {
         return name;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     public List<Loan> getBorrowHistory() {
         return borrowHistory;
     }
 
     public void addLoan(Loan loan) {
         borrowHistory.add(loan);
+    }
+
+    @Override
+    public void update(Book book) {
+        System.out.println(name + " notified: Book available -> " + book.getTitle());
     }
 }

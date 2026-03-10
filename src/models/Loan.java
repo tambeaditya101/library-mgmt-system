@@ -4,8 +4,8 @@ import java.time.LocalDate;
 
 public class Loan {
 
-    private Book book;
-    private Patron patron;
+    private final Book book;
+    private final Patron patron;
     private LocalDate borrowDate;
     private LocalDate returnDate;
     private boolean returned;
@@ -23,6 +23,14 @@ public class Loan {
 
     public Patron getPatron() {
         return patron;
+    }
+
+    public LocalDate getBorrowDate() {
+        return borrowDate;
+    }
+
+    public LocalDate getReturnDate() {
+        return returnDate;
     }
 
     public boolean isReturned() {
